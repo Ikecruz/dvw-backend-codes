@@ -38,7 +38,9 @@ export class NewsFetcher {
                             "Url": url
                         }
                     })
-    
+                    
+                    console.log("News for player: " + playerName + " uploaded");
+
                 } catch (error) {
                     console.error(error);
                 }

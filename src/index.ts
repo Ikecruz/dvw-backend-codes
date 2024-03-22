@@ -5,8 +5,8 @@ function bootstrap() {
     // const spreadSheetReader = new SpreadsheetReader();
     // spreadSheetReader.readData();
 
-    // const newFetcher = new NewsFetcher();
-    // newFetcher.fetchSinglePlayerNews("Lebron James");
+    const newFetcher = new NewsFetcher();
+    newFetcher.fetchSinglePlayerNews("Stephen Curry");
     
 }
 
