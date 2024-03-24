@@ -9,6 +9,7 @@
   },
   "author": "ikecruz",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.506.0",
     "@aws-sdk/lib-dynamodb": "^3.506.0",
@@ -16,7 +17,8 @@
     "axios": "^1.6.7",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.0.3",
-    "newsapi": "^2.4.1"
+    "newsapi": "^2.4.1",
+    "plotly": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
