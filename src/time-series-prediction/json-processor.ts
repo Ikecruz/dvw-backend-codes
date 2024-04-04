@@ -2,6 +2,7 @@ import { Database } from "../database";
 import moment from "moment"
 import { promises as fs } from "fs";
 import path from "path";
+import axios from "axios";
 
 interface PlayerStats {
     MatchTS: number;
@@ -53,6 +54,25 @@ export class JsonProcessor {
 
         await this.createPlayerTestAndTrainJson(stats, fileName);
 
+    }
+
+    public async fetchSyntheticDataAndSaveToJson() {
+        try {
+            
+            const result = (await axios.get("https://y2gtfx0jg3.execute-api.us-east-1.amazonaws.com/prod/M00963934")).data;
+
+            let trainTarget = result.target;
+            let testTarget = trainTarget.slice(-100);
+
+            await Promise.all([
+                this.createJsonFile({fileName: "synthetic_data", start: result.start, target: result.target}),
+                this.createJsonFile({fileName: "synthetic_data_train", start: result.start, target: trainTarget}),
+                this.createJsonFile({fileName: "synthetic_data_test", start: result.start, target: testTarget}),
+            ])
+
+        } catch (error) {
+            console.error('Error downloading or saving synthetic data:', error);
+        }
     }
 
     private async createPlayerTestAndTrainJson(data: PlayerStats[], playerName: string) {

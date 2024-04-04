@@ -11,7 +11,9 @@ function bootstrap() {
     // newFetcher.fetchAllPlayersNews();
     
     const jsonProcessor = new JsonProcessor();
-    jsonProcessor.fetchDataAndSaveToJson();
+    // jsonProcessor.fetchDataAndSaveToJson();
+
+    jsonProcessor.fetchSyntheticDataAndSaveToJson();
 
 }
 
