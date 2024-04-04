@@ -1,11 +1,16 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
 interface AddData {
     tableName: string;
     body: {
         [key: string]: any
     }
+}
+
+interface ScanData {
+    TableName: string;
+    [key: string]: any;
 }
 
 export class Database {
@@ -34,5 +39,20 @@ export class Database {
             }
         })
     }  
+
+    public scan (prop: ScanData): Promise<any> {
+        return new Promise( async (resolve, reject) => {
+            try {
+
+                const command = new ScanCommand(prop);
+
+                const result = await this.docClient.send(command);
+                resolve(result);
+
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
 
 }

@@ -2,7 +2,9 @@ import csv from 'csv-parser';
 import fs from "fs";
 import path from 'path';
 import { Database } from './database';
+import moment from 'moment';
 
+// Interface for player's stats
 interface Stat {
     playerName: string;
     date: number;
@@ -10,6 +12,7 @@ interface Stat {
     points: number;
 }
 
+// Interface for raw data from spreadsheet
 interface RawData {
     date: string;
     type: string;
@@ -34,14 +37,16 @@ export class SpreadsheetReader {
 
         const playerStats: Stat[] = []
 
+        // create and open read stream  with csv parser
         const readStream = fs.createReadStream(absolutePath).pipe(csv())
         
         readStream.on('data', async (data: RawData) => {
             
+            // if current iterated player is not desired player skip
             if (!this.players.includes(data.player) || data.type !== "regular") return;
-
+            
             const newStat: Stat = {
-                date: (new Date(data.date)).getTime(),
+                date: (new Date(this.formatDate(data.date))).getTime() / 1000,
                 playerName: data.player,
                 minutesPlayed: Number(data.MIN),
                 points: Number(data.PTS),
@@ -51,6 +56,7 @@ export class SpreadsheetReader {
                 
         })
 
+        // save player stats to dynamodb
         readStream.on('end', async () => {
             for (let playerStat of playerStats) {
 
@@ -74,5 +80,9 @@ export class SpreadsheetReader {
         })
     }
 
+    public formatDate(date: string) {
+        const dateArray = date.split("-");
+        return `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`
+    }
     
 }

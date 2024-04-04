@@ -14,6 +14,7 @@ export class NewsFetcher {
         this.database = new Database();
     }
 
+    // Method to get news for a single player
     public async fetchSinglePlayerNews(playerName: string) {
 
         const results = await this.api.v2.everything({
@@ -23,10 +24,12 @@ export class NewsFetcher {
         })
 
         if (results.totalResults > 0) {
+
+            // reduced number of news articles being saved to the database
             const trimmedResult = [results.articles[0]]
             
-            trimmedResult.map( async ({ title, publishedAt, url }) => {
-
+            // save news artices to dynamo db
+            for (let { title, publishedAt, url } of trimmedResult) {
                 try {
                 
                     await this.database.save({
@@ -44,9 +47,18 @@ export class NewsFetcher {
                 } catch (error) {
                     console.error(error);
                 }
-
-            })
+            }
         }
+
+    }
+
+    public async fetchAllPlayersNews() {
+
+        const players = ["LeBron James", "Stephen Curry", "Giannis Antetokounmpo", "Kevin Durant", "Russell Westbrook"] 
+        
+        const playerPromise = players.map(player => this.fetchSinglePlayerNews(player));
+
+        await Promise.all(playerPromise);
 
     }
 
