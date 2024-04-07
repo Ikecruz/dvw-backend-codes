@@ -68,7 +68,7 @@ async function plotData(id, xValues, yValues) {
 
     let graphOptions = {
         layout,
-        filename: "data-axes",
+        filename: "raw-synthetic-data",
         fileopt: "overwrite"
     }
 
