@@ -1,8 +1,9 @@
 import { NewsFetcher } from "./news-fetcher";
 import { SpreadsheetReader } from "./spreadsheet-reader";
 import { JsonProcessor } from "./time-series-prediction/json-processor";
+import { SavePredictions } from "./time-series-prediction/save-predictions";
 
-function bootstrap() {
+async function bootstrap() {
 
     // const spreadSheetReader = new SpreadsheetReader();
     // spreadSheetReader.readData();
@@ -10,10 +11,12 @@ function bootstrap() {
     // const newFetcher = new NewsFetcher();
     // newFetcher.fetchAllPlayersNews();
     
-    const jsonProcessor = new JsonProcessor();
-    // jsonProcessor.fetchDataAndSaveToJson();
-
-    jsonProcessor.fetchSyntheticDataAndSaveToJson();
+    // const predictionSaver = new SavePredictions();
+    // await predictionSaver.fetchAndSavePredictions({
+    //     endpointName: "StephenEndpoint",
+    //     filename: "stephen_curry_test.json",
+    //     playerName: "Stephen Curry"
+    // })
 
 }
 
