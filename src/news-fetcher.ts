@@ -26,7 +26,7 @@ export class NewsFetcher {
         if (results.totalResults > 0) {
 
             // reduced number of news articles being saved to the database
-            const trimmedResult = [results.articles[0]]
+            const trimmedResult = results.articles.slice(0, 4)
             
             // save news artices to dynamo db
             for (let { title, publishedAt, url } of trimmedResult) {
@@ -52,6 +52,9 @@ export class NewsFetcher {
 
     }
 
+    /**
+     * The function fetches news for multiple players concurrently using asynchronous requests.
+     */
     public async fetchAllPlayersNews() {
 
         const players = ["LeBron James", "Stephen Curry", "Giannis Antetokounmpo", "Kevin Durant", "Russell Westbrook"] 

@@ -31,6 +31,10 @@ export class SpreadsheetReader {
         this.database = new Database();
     }
 
+    /* The `readData()` method in the `SpreadsheetReader` class is responsible for reading data from a
+    CSV file, parsing it, filtering out specific player stats based on predefined player names and
+    type, and then saving the filtered player stats to a DynamoDB database using an instance of the
+    `Database` class. */
     public readData() {
 
         const absolutePath = path.join(__dirname, this.filePath);
@@ -80,6 +84,14 @@ export class SpreadsheetReader {
         })
     }
 
+    /**
+     * The function `formatDate` takes a date string in the format "YYYY-MM-DD" and returns it in the
+     * format "MM/DD/YYYY".
+     * @param {string} date - The `formatDate` function takes a date string in the format "YYYY-MM-DD"
+     * and returns a formatted date string in the format "MM/DD/YYYY".
+     * @returns The formatDate function takes a date string in the format "YYYY-MM-DD", splits it into
+     * an array using the "-" delimiter, and then returns the date in the format "MM/DD/YYYY".
+     */
     public formatDate(date: string) {
         const dateArray = date.split("-");
         return `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`

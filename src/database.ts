@@ -13,6 +13,9 @@ interface ScanData {
     [key: string]: any;
 }
 
+/**
+ * Database class for interacting with AWS DynamoDB.
+ */
 export class Database {
 
     private readonly docClient: DynamoDBDocumentClient;
@@ -22,6 +25,11 @@ export class Database {
         this.docClient = DynamoDBDocumentClient.from(client);
     }
 
+    /**
+     * Saves data using the specified properties.
+     * @param prop The properties for the data to be saved.
+     * @returns A promise that resolves with the save result.
+     */
     public save (prop: AddData) {
         return new Promise( async (resolve, reject) => {
             try {
@@ -40,6 +48,11 @@ export class Database {
         })
     }  
 
+    /**
+     * Performs a public scan operation on the specified data.
+     * @param prop The properties for the scan operation.
+     * @returns A promise that resolves with the scan result.
+     */
     public scan (prop: ScanData): Promise<any> {
         return new Promise( async (resolve, reject) => {
             try {

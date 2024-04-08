@@ -5,18 +5,13 @@ import { SavePredictions } from "./time-series-prediction/save-predictions";
 
 async function bootstrap() {
 
+    // READS CODE FROM SPREADSHEET
     // const spreadSheetReader = new SpreadsheetReader();
     // spreadSheetReader.readData();
 
-    // const newFetcher = new NewsFetcher();
-    // newFetcher.fetchAllPlayersNews();
-    
-    // const predictionSaver = new SavePredictions();
-    // await predictionSaver.fetchAndSavePredictions({
-    //     endpointName: "StephenEndpoint",
-    //     filename: "stephen_curry_test.json",
-    //     playerName: "Stephen Curry"
-    // })
+    // FETCH NEWS FROM API
+    const newFetcher = new NewsFetcher();
+    newFetcher.fetchAllPlayersNews();
 
 }
 
